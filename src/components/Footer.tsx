@@ -86,10 +86,16 @@ const Footer: React.FC = () => {
             </div>
 
             <div className="flex gap-4">
-              {[Instagram, Facebook, Twitter].map((Icon, i) => (
+              {[
+                { Icon: Instagram, href: 'https://www.instagram.com/website_developer_ariful/' },
+                { Icon: Facebook, href: 'https://web.facebook.com/profile.php?id=61585937835405' },
+                { Icon: Twitter, href: 'https://x.com/arif_ahmed_wp' }
+              ].map(({ Icon, href }, i) => (
                 <a
                   key={i}
-                  href="#"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 rounded-full border border-stone-700 flex items-center justify-center text-stone-400 hover:border-amber-500 hover:text-amber-500 transition-all duration-300"
                 >
                   <Icon size={16} />
@@ -108,11 +114,11 @@ const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-3">
               {[
-                { label: t('nav_home'),    href: '/' },
-                { label: t('nav_shop'),    href: '/shop' },
-                { label: t('nav_about'),   href: '/about' },
+                { label: t('nav_home'), href: '/' },
+                { label: t('nav_shop'), href: '/shop' },
+                { label: t('nav_about'), href: '/about' },
                 { label: t('nav_contact'), href: '/contact' },
-                { label: t('cart_title'),  href: '/cart' },
+                { label: t('cart_title'), href: '/cart' },
               ].map(link => (
                 <li key={link.href}>
                   <Link
@@ -166,27 +172,27 @@ const Footer: React.FC = () => {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="tel:+1234567890"
+                  href="tel:+8801743566895"
                   className="flex items-center gap-3 text-sm text-stone-400 hover:text-amber-400 transition-colors"
                   style={{ fontFamily: 'Montserrat, sans-serif' }}
                 >
                   <Phone size={16} className="text-amber-500 flex-shrink-0" />
-                  +1 (234) 567-8900
+                  +880 1743-566895
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:hello@alyansperde.com"
+                  href="mailto:arifulprowp@gmail.com"
                   className="flex items-center gap-3 text-sm text-stone-400 hover:text-amber-400 transition-colors"
                   style={{ fontFamily: 'Montserrat, sans-serif' }}
                 >
                   <Mail size={16} className="text-amber-500 flex-shrink-0" />
-                  hello@alyansperde.com
+                  arifulprowp@gmail.com
                 </a>
               </li>
               <li>
                 <a
-                  href="https://wa.me/1234567890"
+                  href="https://wa.me/8801743566895"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-sm text-stone-400 hover:text-amber-400 transition-colors"
@@ -220,9 +226,9 @@ const Footer: React.FC = () => {
           >
             <p>{t('footer_rights')}</p>
             <div className="flex gap-6">
-              <a href="#" className="hover:text-stone-300 transition-colors">{t('footer_privacy')}</a>
-              <a href="#" className="hover:text-stone-300 transition-colors">{t('footer_terms')}</a>
-              <a href="#" className="hover:text-stone-300 transition-colors">{t('footer_shipping')}</a>
+              <a href="javascript:void(0)" className="hover:text-stone-300 transition-colors">{t('footer_privacy')}</a>
+              <a href="javascript:void(0)" className="hover:text-stone-300 transition-colors">{t('footer_terms')}</a>
+              <a href="javascript:void(0)" className="hover:text-stone-300 transition-colors">{t('footer_shipping')}</a>
             </div>
           </div>
         </div>

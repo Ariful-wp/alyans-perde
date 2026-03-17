@@ -58,10 +58,10 @@ const Contact: React.FC = () => {
             {/* Contact Cards */}
             <div className="space-y-4">
               {[
-                { icon: Phone,         label: t('contact_phone'),   value: '+1 (234) 567-8900',      sub: 'Mon–Fri, 9AM–6PM',          href: 'tel:+1234567890',              color: 'bg-blue-50 text-blue-500' },
-                { icon: Mail,          label: t('contact_email'),   value: 'hello@alyansperde.com',  sub: 'We reply within 24 hours',   href: 'mailto:hello@alyansperde.com', color: 'bg-amber-50 text-amber-500' },
-                { icon: MessageCircle, label: 'WhatsApp',           value: '+1 (234) 567-8900',      sub: t('contact_whatsapp'),        href: 'https://wa.me/1234567890',     color: 'bg-green-50 text-green-500' },
-                { icon: MapPin,        label: 'Showroom',           value: '12 Luxe Avenue, NY',     sub: 'Visit our showroom',         href: '#',                            color: 'bg-purple-50 text-purple-500' },
+                { icon: Phone, label: t('contact_phone'), value: '+880 1743-566895', sub: 'Mon–Fri, 9AM–6PM', href: 'tel:+8801743566895', color: 'bg-blue-50 text-blue-500' },
+                { icon: Mail, label: t('contact_email'), value: 'arifulprowp@gmail.com', sub: 'We reply within 24 hours', href: 'mailto:arifulprowp@gmail.com', color: 'bg-amber-50 text-amber-500' },
+                { icon: MessageCircle, label: 'WhatsApp', value: '+880 1743-566895', sub: t('contact_whatsapp'), href: 'https://wa.me/8801743566895', color: 'bg-green-50 text-green-500' },
+                { icon: MapPin, label: 'Showroom', value: '12 Luxe Avenue, NY', sub: 'Visit our showroom', href: '#', color: 'bg-purple-50 text-purple-500' },
               ].map(({ icon: Icon, label, value, sub, href, color }) => (
                 <a
                   key={label}
@@ -92,8 +92,8 @@ const Contact: React.FC = () => {
               </div>
               {[
                 ['Monday – Friday', '9:00 AM – 6:00 PM'],
-                ['Saturday',        '10:00 AM – 4:00 PM'],
-                ['Sunday',          'Closed'],
+                ['Saturday', '10:00 AM – 4:00 PM'],
+                ['Sunday', 'Closed'],
               ].map(([day, hours]) => (
                 <div key={day} className="flex justify-between py-1.5 border-b border-stone-100 last:border-0">
                   <span className="text-xs text-stone-500" style={{ fontFamily: 'Montserrat, sans-serif' }}>{day}</span>
@@ -104,7 +104,7 @@ const Contact: React.FC = () => {
 
             {/* WhatsApp CTA */}
             <a
-              href="https://wa.me/1234567890"
+              href="https://wa.me/8801743566895"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-3 w-full py-4 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold tracking-wider uppercase rounded-sm transition-all hover:shadow-lg hover:-translate-y-0.5"
@@ -179,7 +179,7 @@ const Contact: React.FC = () => {
                         <input
                           type="tel" name="phone"
                           value={formData.phone} onChange={handleChange}
-                          placeholder="+1 (000) 000-0000"
+                          placeholder="+880 1743-566895"
                           className="w-full px-4 py-3 border border-stone-200 rounded-sm text-sm outline-none focus:border-amber-400 transition-colors bg-stone-50 focus:bg-white"
                           style={{ fontFamily: 'Montserrat, sans-serif' }}
                         />

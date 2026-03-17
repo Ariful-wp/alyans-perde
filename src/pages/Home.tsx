@@ -53,10 +53,10 @@ const Home: React.FC = () => {
 
   // Translated category names & descriptions
   const categoryTranslations: Record<string, { name: string; desc: string }> = {
-    'Sheer Curtains':    { name: t('collection_sheer'),    desc: t('collection_sheer_desc') },
+    'Sheer Curtains': { name: t('collection_sheer'), desc: t('collection_sheer_desc') },
     'Blackout Curtains': { name: t('collection_blackout'), desc: t('collection_blackout_desc') },
-    'Velvet Drapes':     { name: t('collection_velvet'),   desc: t('collection_velvet_desc') },
-    'Linen & Cotton':    { name: t('collection_linen'),    desc: t('collection_linen_desc') },
+    'Velvet Drapes': { name: t('collection_velvet'), desc: t('collection_velvet_desc') },
+    'Linen & Cotton': { name: t('collection_linen'), desc: t('collection_linen_desc') },
   };
 
   return (
@@ -74,8 +74,8 @@ const Home: React.FC = () => {
                 transform: idx === currentSlide
                   ? 'translateX(0)'
                   : idx < currentSlide
-                  ? 'translateX(-100%)'
-                  : 'translateX(100%)',
+                    ? 'translateX(-100%)'
+                    : 'translateX(100%)',
                 zIndex: idx === currentSlide ? 2 : 1,
               }}
             >
@@ -97,7 +97,7 @@ const Home: React.FC = () => {
                     className="font-light mb-2 leading-tight"
                     style={{
                       fontFamily: 'Cormorant Garamond, serif',
-                      fontSize: 'clamp(3rem, 8vw, 7rem)',
+                      fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
                       textShadow: '0 2px 20px rgba(0,0,0,0.3)',
                     }}
                   >
@@ -107,7 +107,7 @@ const Home: React.FC = () => {
                     className="font-light italic mb-6 leading-tight"
                     style={{
                       fontFamily: 'Cormorant Garamond, serif',
-                      fontSize: 'clamp(3rem, 8vw, 7rem)',
+                      fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
                       color: '#e8d48b',
                       textShadow: '0 2px 20px rgba(0,0,0,0.3)',
                     }}
@@ -115,22 +115,22 @@ const Home: React.FC = () => {
                     {slideContent[idx]?.sub || slide.subtitle}
                   </h1>
                   <p
-                    className="text-white/80 mb-8 max-w-xl mx-auto leading-relaxed"
-                    style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '0.95rem' }}
+                    className="text-white/80 mb-6 max-w-xl mx-auto leading-relaxed"
+                    style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '0.9rem' }}
                   >
                     {slideContent[idx]?.desc || slide.description}
                   </p>
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                     <Link
                       to="/shop"
-                      className="btn-gold inline-flex items-center gap-2 px-8 py-4 text-sm tracking-widest uppercase rounded-sm"
+                      className="btn-gold inline-flex items-center gap-2 px-7 py-3.5 text-sm tracking-widest uppercase rounded-sm"
                       style={{ fontFamily: 'Montserrat, sans-serif' }}
                     >
-                      {t('hero_cta')} <ArrowRight size={16} />
+                      {t('hero_cta')} <ArrowRight size={14} />
                     </Link>
                     <Link
                       to="/about"
-                      className="inline-flex items-center gap-2 px-8 py-4 text-sm tracking-widest uppercase rounded-sm text-white border border-white/40 hover:border-white transition-all hover:bg-white/10"
+                      className="inline-flex items-center gap-2 px-7 py-3.5 text-sm tracking-widest uppercase rounded-sm text-white border border-white/40 hover:border-white transition-all hover:bg-white/10"
                       style={{ fontFamily: 'Montserrat, sans-serif' }}
                     >
                       {t('about_tag')}
@@ -162,9 +162,8 @@ const Home: React.FC = () => {
             <button
               key={idx}
               onClick={() => goToSlide(idx)}
-              className={`transition-all duration-300 rounded-full ${
-                idx === currentSlide ? 'w-8 h-2 bg-amber-400' : 'w-2 h-2 bg-white/50 hover:bg-white/80'
-              }`}
+              className={`transition-all duration-300 rounded-full ${idx === currentSlide ? 'w-8 h-2 bg-amber-400' : 'w-2 h-2 bg-white/50 hover:bg-white/80'
+                }`}
             />
           ))}
         </div>
@@ -180,10 +179,10 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { icon: Truck,     label: t('feat_free_shipping'), desc: t('feat_free_shipping_sub') },
-              { icon: Shield,    label: t('feat_premium'),       desc: t('feat_premium_sub') },
-              { icon: RotateCcw, label: t('feat_returns'),       desc: t('feat_returns_sub') },
-              { icon: Star,      label: t('feat_support'),       desc: t('feat_support_sub') },
+              { icon: Truck, label: t('feat_free_shipping'), desc: t('feat_free_shipping_sub') },
+              { icon: Shield, label: t('feat_premium'), desc: t('feat_premium_sub') },
+              { icon: RotateCcw, label: t('feat_returns'), desc: t('feat_returns_sub') },
+              { icon: Star, label: t('feat_support'), desc: t('feat_support_sub') },
             ].map(({ icon: Icon, label, desc }) => (
               <div key={label} className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full gold-gradient flex items-center justify-center flex-shrink-0">
@@ -370,8 +369,8 @@ const Home: React.FC = () => {
             <div className="flex flex-wrap gap-8 mb-8">
               {[
                 ['2,000+', t('about_designs')],
-                ['15K+',   t('about_customers')],
-                ['50+',    t('about_countries')],
+                ['15K+', t('about_customers')],
+                ['50+', t('about_countries')],
               ].map(([num, label]) => (
                 <div key={label}>
                   <p className="text-2xl font-semibold gold-text" style={{ fontFamily: 'Cormorant Garamond, serif' }}>{num}</p>
@@ -440,9 +439,9 @@ const Home: React.FC = () => {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
-              { icon: Phone,         label: t('contact_phone'),    value: '+1 (234) 567-8900',      href: 'tel:+1234567890',              color: 'bg-blue-50 text-blue-500' },
-              { icon: Mail,          label: t('contact_email'),    value: 'hello@alyansperde.com',  href: 'mailto:hello@alyansperde.com', color: 'bg-amber-50 text-amber-500' },
-              { icon: MessageCircle, label: 'WhatsApp',            value: t('contact_whatsapp'),    href: 'https://wa.me/1234567890',     color: 'bg-green-50 text-green-500' },
+              { icon: Phone, label: t('contact_phone'), value: '+880 1743-566895', href: 'tel:+8801743566895', color: 'bg-blue-50 text-blue-500' },
+              { icon: Mail, label: t('contact_email'), value: 'arifulprowp@gmail.com', href: 'mailto:arifulprowp@gmail.com', color: 'bg-amber-50 text-amber-500' },
+              { icon: MessageCircle, label: 'WhatsApp', value: '+880 1743-566895', href: 'https://wa.me/8801743566895', color: 'bg-green-50 text-green-500' },
             ].map(({ icon: Icon, label, value, href, color }) => (
               <a
                 key={label}

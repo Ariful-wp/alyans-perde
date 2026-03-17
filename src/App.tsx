@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
 import LanguagePopup from './components/LanguagePopup';
 import Chatbot from './components/Chatbot';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import ProductDetail from './pages/ProductDetail';
@@ -32,6 +33,7 @@ const App: React.FC = () => {
     <AdminProvider>
       <LanguageProvider>
         <Router>
+          <ScrollToTop />
           <CartProvider>
             <Routes>
               {/* ── Public store routes ── */}

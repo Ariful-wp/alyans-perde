@@ -11,7 +11,7 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType>({
   lang: 'en',
-  setLang: () => {},
+  setLang: () => { },
   t: (k) => k,
   dir: 'ltr',
 });
@@ -112,10 +112,10 @@ export const translations: Record<Language, Record<string, string>> = {
     contact_tag: 'Get In Touch',
     contact_title: 'We\'d Love to Hear',
     contact_title2: 'From You',
-    contact_desc: 'Have questions about our curtains or need custom sizing? Our team is ready to help.',
+    contact_desc: 'Have questions about our curtains or need custom sizing? Reach out to Ariful Islam directly.',
     contact_phone: 'Phone',
     contact_email: 'Email',
-    contact_whatsapp: 'Chat on WhatsApp',
+    contact_whatsapp: 'WhatsApp',
 
     // Footer
     footer_brand_desc: 'Premium curtains and drapes for the modern home. Crafted with care, designed with elegance.',
