@@ -1,0 +1,663 @@
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+
+export type Language = 'en' | 'tr' | 'ar';
+
+interface LanguageContextType {
+  lang: Language;
+  setLang: (l: Language) => void;
+  t: (key: string) => string;
+  dir: 'ltr' | 'rtl';
+}
+
+const LanguageContext = createContext<LanguageContextType>({
+  lang: 'en',
+  setLang: () => {},
+  t: (k) => k,
+  dir: 'ltr',
+});
+
+export const useLanguage = () => useContext(LanguageContext);
+
+// ─────────────────────────────────────────────
+//  TRANSLATIONS
+// ─────────────────────────────────────────────
+export const translations: Record<Language, Record<string, string>> = {
+  // ── ENGLISH ──────────────────────────────
+  en: {
+    // Nav
+    nav_home: 'Home',
+    nav_shop: 'Shop',
+    nav_about: 'About',
+    nav_contact: 'Contact',
+    nav_shop_btn: 'Shop Now',
+    search_placeholder: 'Search curtains...',
+
+    // Hero
+    hero_tag: 'Premium Collection',
+    hero_cta: 'Shop Now',
+    slide1_title: 'Dress Your Windows',
+    slide1_sub: 'in Luxury',
+    slide1_desc: 'Handcrafted curtains that transform every room into a sanctuary of elegance.',
+    slide2_title: 'Elegance in',
+    slide2_sub: 'Every Thread',
+    slide2_desc: 'Discover our finest fabrics — woven with passion, designed for perfection.',
+    slide3_title: 'Premium Quality,',
+    slide3_sub: 'Timeless Style',
+    slide3_desc: 'Collections that blend modern aesthetics with enduring craftsmanship.',
+
+    // Features bar
+    feat_free_shipping: 'Free Shipping',
+    feat_free_shipping_sub: 'On orders over $200',
+    feat_premium: 'Premium Quality',
+    feat_premium_sub: 'Finest fabrics only',
+    feat_returns: 'Easy Returns',
+    feat_returns_sub: '30-day policy',
+    feat_support: '24/7 Support',
+    feat_support_sub: 'Always here for you',
+
+    // Collections
+    section_collections: 'Our Collections',
+    section_collections_sub: 'Curated styles for every home and taste',
+    collection_sheer: 'Sheer Curtains',
+    collection_sheer_desc: 'Light & Airy',
+    collection_blackout: 'Blackout Curtains',
+    collection_blackout_desc: 'Total Darkness',
+    collection_velvet: 'Velvet Drapes',
+    collection_velvet_desc: 'Rich & Luxurious',
+    collection_linen: 'Linen & Cotton',
+    collection_linen_desc: 'Natural & Organic',
+    explore_collection: 'Explore Collection',
+
+    // Products
+    section_featured: 'Featured Products',
+    section_featured_sub: 'Handpicked favourites from our premium range',
+    view_all: 'View All Products',
+    add_to_cart: 'Add to Cart',
+    quick_view: 'Quick View',
+    wishlist: 'Wishlist',
+
+    // Product badges
+    badge_bestseller: 'Best Seller',
+    badge_new: 'New',
+    badge_premium: 'Premium',
+    badge_sale: 'Sale',
+
+    // Video section
+    video_tag: 'Behind The Design',
+    video_title: 'How We Design Perfect',
+    video_title2: 'Curtains For Your Home',
+    video_desc: 'From fabric selection to final stitch — discover the craftsmanship and passion that goes into every Alyans Perde curtain.',
+    video_btn: 'Watch Our Process',
+
+    // About snippet
+    about_tag: 'Our Heritage',
+    about_title: 'Crafted With Passion,',
+    about_title2: 'Designed For You',
+    about_desc1: 'Alyans Perde has been transforming homes with premium curtains and drapes. Every piece is a testament to our commitment to quality and elegance.',
+    about_desc2: 'We source the finest fabrics from around the world and work with skilled artisans to create curtains that are both beautiful and functional.',
+    about_experience: 'Years of Excellence',
+    about_designs: 'Unique Designs',
+    about_customers: 'Happy Customers',
+    about_countries: 'Countries Served',
+    learn_more: 'Learn More',
+
+    // CTA
+    cta_title: 'Ready to Transform',
+    cta_title2: 'Your Home?',
+    cta_desc: 'Explore our premium collection and find the perfect curtains for every room.',
+    cta_btn: 'Shop the Collection',
+    cta_btn2: 'Contact Us',
+
+    // Contact preview
+    contact_tag: 'Get In Touch',
+    contact_title: 'We\'d Love to Hear',
+    contact_title2: 'From You',
+    contact_desc: 'Have questions about our curtains or need custom sizing? Our team is ready to help.',
+    contact_phone: 'Phone',
+    contact_email: 'Email',
+    contact_whatsapp: 'Chat on WhatsApp',
+
+    // Footer
+    footer_brand_desc: 'Premium curtains and drapes for the modern home. Crafted with care, designed with elegance.',
+    footer_newsletter: 'Join Our Newsletter',
+    footer_newsletter_sub: 'Get exclusive offers and design inspiration.',
+    footer_email_placeholder: 'Your email address',
+    footer_subscribe: 'Subscribe',
+    footer_quick_links: 'Quick Links',
+    footer_collections: 'Collections',
+    footer_contact: 'Contact',
+    footer_privacy: 'Privacy Policy',
+    footer_terms: 'Terms of Service',
+    footer_faq: 'FAQ',
+    footer_shipping: 'Shipping Info',
+    footer_returns: 'Returns',
+    footer_rights: '© 2025 Alyans Perde. All rights reserved.',
+    footer_made: 'Crafted with',
+
+    // About page
+    about_page_tag: 'Our Story',
+    about_page_title: 'About',
+    about_page_brand: 'Alyans Perde',
+    about_page_subtitle: 'Where luxury meets craftsmanship in every thread',
+    about_story_tag: 'The Beginning',
+    about_story_title: 'Our Story',
+    about_story_p1: 'Founded by Ariful Islam, Alyans Perde began as a small atelier with a singular vision: to bring luxury and craftsmanship into every home through exquisite curtains and drapes.',
+    about_story_p2: 'Today, we are proud to serve thousands of homes worldwide, blending traditional textile artistry with contemporary design sensibility.',
+    about_story_p3: 'Every curtain we craft is a labour of love — from sourcing the finest fabrics to the last hand-sewn stitch.',
+    about_values_tag: 'What We Stand For',
+    about_values_title: 'Our Values',
+    value1_title: 'Premium Quality',
+    value1_desc: 'Only the finest fabrics and materials — no compromise.',
+    value2_title: 'Craftsmanship',
+    value2_desc: 'Skilled artisans bring every design to life with precision.',
+    value3_title: 'Sustainability',
+    value3_desc: 'Ethically sourced materials and eco-friendly processes.',
+    value4_title: 'Customer First',
+    value4_desc: 'Personalised service and support from start to finish.',
+    about_gallery_tag: 'Our Work',
+    about_gallery_title: 'Design Gallery',
+    about_team_tag: 'The People Behind',
+    about_team_title: 'Meet Our Team',
+    about_cta_title: 'Ready to Elevate Your Home?',
+    about_cta_desc: 'Browse our full collection of premium curtains and drapes.',
+    about_cta_btn: 'Shop Now',
+
+    // Shop page
+    shop_title: 'Our Collection',
+    shop_subtitle: 'Discover premium curtains crafted for every style',
+    shop_all: 'All',
+    shop_filter: 'Filter',
+    shop_sort: 'Sort by',
+    shop_sort_featured: 'Featured',
+    shop_sort_price_asc: 'Price: Low to High',
+    shop_sort_price_desc: 'Price: High to Low',
+    shop_sort_name: 'Name',
+    shop_price_range: 'Price Range',
+    shop_results: 'products found',
+    shop_no_results: 'No products found',
+    shop_no_results_sub: 'Try adjusting your filters.',
+
+    // Product detail
+    pd_in_stock: 'In Stock',
+    pd_color: 'Color',
+    pd_size: 'Size',
+    pd_qty: 'Quantity',
+    pd_add_cart: 'Add to Cart',
+    pd_description: 'Description',
+    pd_free_shipping: 'Free Shipping',
+    pd_free_shipping_sub: 'On orders over $200',
+    pd_returns: 'Easy Returns',
+    pd_returns_sub: '30-day return policy',
+    pd_secure: 'Secure Payment',
+    pd_secure_sub: 'SSL-encrypted checkout',
+    pd_related: 'You May Also Like',
+
+    // Cart page
+    cart_title: 'Your Cart',
+    cart_empty: 'Your cart is empty',
+    cart_empty_sub: 'Looks like you haven\'t added anything yet.',
+    cart_start: 'Start Shopping',
+    cart_item: 'Item',
+    cart_price: 'Price',
+    cart_qty: 'Qty',
+    cart_total: 'Total',
+    cart_remove: 'Remove',
+    cart_coupon: 'Coupon Code',
+    cart_apply: 'Apply',
+    cart_summary: 'Order Summary',
+    cart_subtotal: 'Subtotal',
+    cart_shipping: 'Shipping',
+    cart_discount: 'Discount',
+    cart_free: 'FREE',
+    cart_order_total: 'Order Total',
+    cart_checkout: 'Proceed to Checkout',
+    cart_continue: 'Continue Shopping',
+
+    // Contact page
+    contact_page_title: 'Contact',
+    contact_page_brand: 'Us',
+    contact_page_subtitle: 'We\'re here to help with any questions',
+    contact_form_name: 'Full Name',
+    contact_form_email: 'Email Address',
+    contact_form_subject: 'Subject',
+    contact_form_message: 'Message',
+    contact_form_send: 'Send Message',
+    contact_form_sending: 'Sending...',
+    contact_info_title: 'Get in Touch',
+
+    // Language popup
+    lang_popup_title: 'Choose Your Language',
+    lang_popup_sub: 'Select your preferred language to continue',
+    lang_popup_close: 'Continue in English',
+    lang_en: 'English',
+    lang_tr: 'Turkish',
+    lang_ar: 'Arabic',
+  },
+
+  // ── TURKISH ──────────────────────────────
+  tr: {
+    nav_home: 'Ana Sayfa',
+    nav_shop: 'Mağaza',
+    nav_about: 'Hakkımızda',
+    nav_contact: 'İletişim',
+    nav_shop_btn: 'Alışverişe Başla',
+    search_placeholder: 'Perde ara...',
+
+    hero_tag: 'Premium Koleksiyon',
+    hero_cta: 'Alışverişe Başla',
+    slide1_title: 'Pencerelerinizi',
+    slide1_sub: 'Zarafetle Süsleyin',
+    slide1_desc: 'El yapımı perdeler, her odayı zarafetin sığınağına dönüştürür.',
+    slide2_title: 'Her İplikte',
+    slide2_sub: 'Zarafet',
+    slide2_desc: 'En ince kumaşlarımızı keşfedin — tutku ile dokunmuş, mükemmellik için tasarlanmış.',
+    slide3_title: 'Premium Kalite,',
+    slide3_sub: 'Zamansız Stil',
+    slide3_desc: 'Modern estetikle kalıcı ustalığı harmanlayan koleksiyonlar.',
+
+    feat_free_shipping: 'Ücretsiz Kargo',
+    feat_free_shipping_sub: '200$ üzeri siparişlerde',
+    feat_premium: 'Premium Kalite',
+    feat_premium_sub: 'Yalnızca en iyi kumaşlar',
+    feat_returns: 'Kolay İade',
+    feat_returns_sub: '30 gün iade politikası',
+    feat_support: '7/24 Destek',
+    feat_support_sub: 'Her zaman yanınızdayız',
+
+    section_collections: 'Koleksiyonlarımız',
+    section_collections_sub: 'Her ev ve zevk için özenle seçilmiş stiller',
+    collection_sheer: 'Tül Perdeler',
+    collection_sheer_desc: 'Hafif & Havadar',
+    collection_blackout: 'Karartma Perdeleri',
+    collection_blackout_desc: 'Tam Karanlık',
+    collection_velvet: 'Kadife Perdeler',
+    collection_velvet_desc: 'Zengin & Lüks',
+    collection_linen: 'Keten & Pamuk',
+    collection_linen_desc: 'Doğal & Organik',
+    explore_collection: 'Koleksiyonu Keşfet',
+
+    section_featured: 'Öne Çıkan Ürünler',
+    section_featured_sub: 'Premium ürün yelpazemizden el ile seçilmiş favoriler',
+    view_all: 'Tüm Ürünleri Gör',
+    add_to_cart: 'Sepete Ekle',
+    quick_view: 'Hızlı Bakış',
+    wishlist: 'İstek Listesi',
+
+    badge_bestseller: 'Çok Satan',
+    badge_new: 'Yeni',
+    badge_premium: 'Premium',
+    badge_sale: 'İndirim',
+
+    video_tag: 'Tasarımın Ardında',
+    video_title: 'Eviniz İçin Mükemmel',
+    video_title2: 'Perdeleri Nasıl Tasarlıyoruz',
+    video_desc: 'Kumaş seçiminden son dikişe — her Alyans Perde perdesine yansıyan ustalığı ve tutkuyu keşfedin.',
+    video_btn: 'Sürecimizi İzleyin',
+
+    about_tag: 'Mirasımız',
+    about_title: 'Tutku ile Üretildi,',
+    about_title2: 'Sizin İçin Tasarlandı',
+    about_desc1: 'Alyans Perde, premium perde ve perdelerle evleri dönüştürmektedir. Her parça, kalite ve zarafete olan bağlılığımızın kanıtıdır.',
+    about_desc2: 'Dünyanın dört bir yanından en iyi kumaşları temin ediyor ve hem güzel hem de işlevsel perdeler üretmek için yetenekli ustalarla çalışıyoruz.',
+    about_experience: 'Yıllık Mükemmellik',
+    about_designs: 'Benzersiz Tasarım',
+    about_customers: 'Mutlu Müşteri',
+    about_countries: 'Hizmet Verilen Ülke',
+    learn_more: 'Daha Fazla',
+
+    cta_title: 'Evinizi Dönüştürmeye',
+    cta_title2: 'Hazır mısınız?',
+    cta_desc: 'Premium koleksiyonumuzu keşfedin ve her oda için mükemmel perdeleri bulun.',
+    cta_btn: 'Koleksiyona Gözat',
+    cta_btn2: 'Bize Ulaşın',
+
+    contact_tag: 'İletişime Geçin',
+    contact_title: 'Sizden Haber',
+    contact_title2: 'Almak İsteriz',
+    contact_desc: 'Perdelerimiz hakkında sorularınız mı var veya özel ölçü mü gerekiyor? Ekibimiz yardımcı olmaya hazır.',
+    contact_phone: 'Telefon',
+    contact_email: 'E-posta',
+    contact_whatsapp: 'WhatsApp\'tan Yaz',
+
+    footer_brand_desc: 'Modern ev için premium perde ve perdeler. Özenle üretilmiş, zarafetle tasarlanmış.',
+    footer_newsletter: 'Bültenimize Katılın',
+    footer_newsletter_sub: 'Özel teklifler ve tasarım ilhamı alın.',
+    footer_email_placeholder: 'E-posta adresiniz',
+    footer_subscribe: 'Abone Ol',
+    footer_quick_links: 'Hızlı Bağlantılar',
+    footer_collections: 'Koleksiyonlar',
+    footer_contact: 'İletişim',
+    footer_privacy: 'Gizlilik Politikası',
+    footer_terms: 'Kullanım Koşulları',
+    footer_faq: 'SSS',
+    footer_shipping: 'Kargo Bilgisi',
+    footer_returns: 'İadeler',
+    footer_rights: '© 2025 Alyans Perde. Tüm hakları saklıdır.',
+    footer_made: 'ile yapıldı',
+
+    about_page_tag: 'Hikayemiz',
+    about_page_title: 'Hakkında',
+    about_page_brand: 'Alyans Perde',
+    about_page_subtitle: 'Her iplikte lüks ve ustalık bir araya gelir',
+    about_story_tag: 'Başlangıç',
+    about_story_title: 'Hikayemiz',
+    about_story_p1: 'Ariful Islam tarafından kurulan Alyans Perde, tek bir vizyonla küçük bir atölye olarak başladı: her eve nefis perde ve drape\'ler aracılığıyla lüks ve ustalık kazandırmak.',
+    about_story_p2: 'Bugün, geleneksel tekstil sanatını çağdaş tasarım anlayışıyla harmanlayarak dünya genelinde binlerce evi hizmet verdiğimizden gurur duyuyoruz.',
+    about_story_p3: 'Ürettiğimiz her perde bir sevgi emeğidir — en iyi kumaşların seçilmesinden son el dikişine kadar.',
+    about_values_tag: 'Neyi Temsil Ediyoruz',
+    about_values_title: 'Değerlerimiz',
+    value1_title: 'Premium Kalite',
+    value1_desc: 'Yalnızca en iyi kumaş ve malzemeler — ödün yok.',
+    value2_title: 'Ustalık',
+    value2_desc: 'Yetenekli ustalar her tasarımı hassasiyetle hayata geçirir.',
+    value3_title: 'Sürdürülebilirlik',
+    value3_desc: 'Etik kaynaklı malzemeler ve çevre dostu süreçler.',
+    value4_title: 'Müşteri Önce',
+    value4_desc: 'Başından sonuna kişisel hizmet ve destek.',
+    about_gallery_tag: 'Çalışmalarımız',
+    about_gallery_title: 'Tasarım Galerisi',
+    about_team_tag: 'Arkasındaki İnsanlar',
+    about_team_title: 'Ekibimizle Tanışın',
+    about_cta_title: 'Evinizi Yükseltmeye Hazır mısınız?',
+    about_cta_desc: 'Premium perde ve drape\'lerin tüm koleksiyonuna göz atın.',
+    about_cta_btn: 'Alışverişe Başla',
+
+    shop_title: 'Koleksiyonumuz',
+    shop_subtitle: 'Her stil için hazırlanmış premium perdeleri keşfedin',
+    shop_all: 'Tümü',
+    shop_filter: 'Filtrele',
+    shop_sort: 'Sıralama',
+    shop_sort_featured: 'Öne Çıkanlar',
+    shop_sort_price_asc: 'Fiyat: Düşükten Yükseğe',
+    shop_sort_price_desc: 'Fiyat: Yüksekten Düşüğe',
+    shop_sort_name: 'İsim',
+    shop_price_range: 'Fiyat Aralığı',
+    shop_results: 'ürün bulundu',
+    shop_no_results: 'Ürün bulunamadı',
+    shop_no_results_sub: 'Filtrelerinizi ayarlamayı deneyin.',
+
+    pd_in_stock: 'Stokta Var',
+    pd_color: 'Renk',
+    pd_size: 'Boyut',
+    pd_qty: 'Miktar',
+    pd_add_cart: 'Sepete Ekle',
+    pd_description: 'Açıklama',
+    pd_free_shipping: 'Ücretsiz Kargo',
+    pd_free_shipping_sub: '200$ üzeri siparişlerde',
+    pd_returns: 'Kolay İade',
+    pd_returns_sub: '30 gün iade politikası',
+    pd_secure: 'Güvenli Ödeme',
+    pd_secure_sub: 'SSL şifreli ödeme',
+    pd_related: 'Bunları da Beğenebilirsiniz',
+
+    cart_title: 'Sepetiniz',
+    cart_empty: 'Sepetiniz boş',
+    cart_empty_sub: 'Henüz bir şey eklemediniz gibi görünüyor.',
+    cart_start: 'Alışverişe Başla',
+    cart_item: 'Ürün',
+    cart_price: 'Fiyat',
+    cart_qty: 'Adet',
+    cart_total: 'Toplam',
+    cart_remove: 'Kaldır',
+    cart_coupon: 'Kupon Kodu',
+    cart_apply: 'Uygula',
+    cart_summary: 'Sipariş Özeti',
+    cart_subtotal: 'Ara Toplam',
+    cart_shipping: 'Kargo',
+    cart_discount: 'İndirim',
+    cart_free: 'ÜCRETSİZ',
+    cart_order_total: 'Sipariş Toplamı',
+    cart_checkout: 'Ödemeye Geç',
+    cart_continue: 'Alışverişe Devam Et',
+
+    contact_page_title: 'İletişim',
+    contact_page_brand: 'Bize Ulaşın',
+    contact_page_subtitle: 'Her türlü sorunuzda buradayız',
+    contact_form_name: 'Tam Adınız',
+    contact_form_email: 'E-posta Adresiniz',
+    contact_form_subject: 'Konu',
+    contact_form_message: 'Mesajınız',
+    contact_form_send: 'Mesaj Gönder',
+    contact_form_sending: 'Gönderiliyor...',
+    contact_info_title: 'İletişime Geçin',
+
+    lang_popup_title: 'Dilinizi Seçin',
+    lang_popup_sub: 'Devam etmek için tercih ettiğiniz dili seçin',
+    lang_popup_close: 'Türkçe devam et',
+    lang_en: 'İngilizce',
+    lang_tr: 'Türkçe',
+    lang_ar: 'Arapça',
+  },
+
+  // ── ARABIC ───────────────────────────────
+  ar: {
+    nav_home: 'الرئيسية',
+    nav_shop: 'المتجر',
+    nav_about: 'من نحن',
+    nav_contact: 'تواصل معنا',
+    nav_shop_btn: 'تسوق الآن',
+    search_placeholder: 'ابحث عن الستائر...',
+
+    hero_tag: 'مجموعة مميزة',
+    hero_cta: 'تسوق الآن',
+    slide1_title: 'زيّن نوافذك',
+    slide1_sub: 'بأناقة فاخرة',
+    slide1_desc: 'ستائر مصنوعة يدويًا تحوّل كل غرفة إلى ملاذ من الأناقة.',
+    slide2_title: 'أناقة في',
+    slide2_sub: 'كل خيط',
+    slide2_desc: 'اكتشف أرقى أقمشتنا — منسوجة بشغف، مصممة للكمال.',
+    slide3_title: 'جودة فائقة،',
+    slide3_sub: 'أسلوب خالد',
+    slide3_desc: 'مجموعات تجمع بين الجماليات الحديثة والحرفية الدائمة.',
+
+    feat_free_shipping: 'شحن مجاني',
+    feat_free_shipping_sub: 'على الطلبات فوق 200$',
+    feat_premium: 'جودة فائقة',
+    feat_premium_sub: 'أفضل الأقمشة فقط',
+    feat_returns: 'إرجاع سهل',
+    feat_returns_sub: 'سياسة 30 يومًا',
+    feat_support: 'دعم 24/7',
+    feat_support_sub: 'دائمًا هنا من أجلك',
+
+    section_collections: 'مجموعاتنا',
+    section_collections_sub: 'أساليب منتقاة لكل منزل وذوق',
+    collection_sheer: 'ستائر شفافة',
+    collection_sheer_desc: 'خفيفة وهوائية',
+    collection_blackout: 'ستائر معتمة',
+    collection_blackout_desc: 'ظلام تام',
+    collection_velvet: 'ستائر مخملية',
+    collection_velvet_desc: 'فاخرة وغنية',
+    collection_linen: 'كتان وقطن',
+    collection_linen_desc: 'طبيعي وعضوي',
+    explore_collection: 'استكشف المجموعة',
+
+    section_featured: 'منتجات مميزة',
+    section_featured_sub: 'مفضلات مختارة يدويًا من مجموعتنا الفاخرة',
+    view_all: 'عرض جميع المنتجات',
+    add_to_cart: 'أضف إلى السلة',
+    quick_view: 'عرض سريع',
+    wishlist: 'قائمة الرغبات',
+
+    badge_bestseller: 'الأكثر مبيعًا',
+    badge_new: 'جديد',
+    badge_premium: 'مميز',
+    badge_sale: 'تخفيض',
+
+    video_tag: 'خلف التصميم',
+    video_title: 'كيف نصمم ستائر مثالية',
+    video_title2: 'لمنزلك',
+    video_desc: 'من اختيار الأقمشة إلى الغرزة الأخيرة — اكتشف الحرفية والشغف في كل ستارة من Alyans Perde.',
+    video_btn: 'شاهد عمليتنا',
+
+    about_tag: 'إرثنا',
+    about_title: 'مصنوع بشغف،',
+    about_title2: 'مصمم لك',
+    about_desc1: 'تحوّل Alyans Perde المنازل بالستائر والدرابيز الفاخرة. كل قطعة دليل على التزامنا بالجودة والأناقة.',
+    about_desc2: 'نحصل على أجود الأقمشة من حول العالم ونعمل مع حرفيين مهرة لصنع ستائر جميلة وعملية.',
+    about_experience: 'سنوات من التميز',
+    about_designs: 'تصميم فريد',
+    about_customers: 'عميل سعيد',
+    about_countries: 'دول نخدمها',
+    learn_more: 'اعرف أكثر',
+
+    cta_title: 'هل أنت مستعد لتحويل',
+    cta_title2: 'منزلك؟',
+    cta_desc: 'استكشف مجموعتنا الفاخرة وابحث عن الستائر المثالية لكل غرفة.',
+    cta_btn: 'تسوق المجموعة',
+    cta_btn2: 'تواصل معنا',
+
+    contact_tag: 'تواصل معنا',
+    contact_title: 'يسعدنا',
+    contact_title2: 'سماعك',
+    contact_desc: 'هل لديك أسئلة حول ستائرنا أو تحتاج إلى مقاسات مخصصة؟ فريقنا مستعد للمساعدة.',
+    contact_phone: 'هاتف',
+    contact_email: 'بريد إلكتروني',
+    contact_whatsapp: 'تحدث على واتساب',
+
+    footer_brand_desc: 'ستائر ودرابيز فاخرة للمنزل الحديث. مصنوعة بعناية، مصممة بأناقة.',
+    footer_newsletter: 'انضم إلى نشرتنا البريدية',
+    footer_newsletter_sub: 'احصل على عروض حصرية وإلهام تصميم.',
+    footer_email_placeholder: 'عنوان بريدك الإلكتروني',
+    footer_subscribe: 'اشترك',
+    footer_quick_links: 'روابط سريعة',
+    footer_collections: 'المجموعات',
+    footer_contact: 'تواصل معنا',
+    footer_privacy: 'سياسة الخصوصية',
+    footer_terms: 'شروط الخدمة',
+    footer_faq: 'الأسئلة الشائعة',
+    footer_shipping: 'معلومات الشحن',
+    footer_returns: 'المرتجعات',
+    footer_rights: '© 2025 Alyans Perde. جميع الحقوق محفوظة.',
+    footer_made: 'صُنع بـ',
+
+    about_page_tag: 'قصتنا',
+    about_page_title: 'حول',
+    about_page_brand: 'Alyans Perde',
+    about_page_subtitle: 'حيث يلتقي الفخامة بالحرفية في كل خيط',
+    about_story_tag: 'البداية',
+    about_story_title: 'قصتنا',
+    about_story_p1: 'تأسست Alyans Perde على يد Ariful Islam كمحترف صغير برؤية واحدة: جلب الفخامة والحرفية إلى كل منزل من خلال الستائر والدرابيز الرائعة.',
+    about_story_p2: 'اليوم، نفخر بخدمة آلاف المنازل حول العالم، نمزج فن المنسوجات التقليدية مع الحساسية التصميمية المعاصرة.',
+    about_story_p3: 'كل ستارة نصنعها هي عمل محبة — من اختيار أجود الأقمشة إلى آخر غرزة يدوية.',
+    about_values_tag: 'ما نمثله',
+    about_values_title: 'قيمنا',
+    value1_title: 'جودة فائقة',
+    value1_desc: 'فقط أجود الأقمشة والمواد — بلا تنازلات.',
+    value2_title: 'الحرفية',
+    value2_desc: 'حرفيون مهرة يجسّدون كل تصميم بدقة.',
+    value3_title: 'الاستدامة',
+    value3_desc: 'مواد مستدامة أخلاقيًا وعمليات صديقة للبيئة.',
+    value4_title: 'العميل أولًا',
+    value4_desc: 'خدمة ودعم شخصيان من البداية إلى النهاية.',
+    about_gallery_tag: 'أعمالنا',
+    about_gallery_title: 'معرض التصاميم',
+    about_team_tag: 'الأشخاص وراء',
+    about_team_title: 'تعرف على فريقنا',
+    about_cta_title: 'هل أنت مستعد لتحسين منزلك؟',
+    about_cta_desc: 'تصفح مجموعتنا الكاملة من الستائر والدرابيز الفاخرة.',
+    about_cta_btn: 'تسوق الآن',
+
+    shop_title: 'مجموعتنا',
+    shop_subtitle: 'اكتشف ستائر فاخرة مصممة لكل أسلوب',
+    shop_all: 'الكل',
+    shop_filter: 'تصفية',
+    shop_sort: 'ترتيب حسب',
+    shop_sort_featured: 'مميز',
+    shop_sort_price_asc: 'السعر: من الأقل',
+    shop_sort_price_desc: 'السعر: من الأعلى',
+    shop_sort_name: 'الاسم',
+    shop_price_range: 'نطاق السعر',
+    shop_results: 'منتج تم العثور عليه',
+    shop_no_results: 'لم يتم العثور على منتجات',
+    shop_no_results_sub: 'حاول ضبط الفلاتر.',
+
+    pd_in_stock: 'متوفر في المخزون',
+    pd_color: 'اللون',
+    pd_size: 'المقاس',
+    pd_qty: 'الكمية',
+    pd_add_cart: 'أضف إلى السلة',
+    pd_description: 'الوصف',
+    pd_free_shipping: 'شحن مجاني',
+    pd_free_shipping_sub: 'على الطلبات فوق 200$',
+    pd_returns: 'إرجاع سهل',
+    pd_returns_sub: 'سياسة إرجاع 30 يومًا',
+    pd_secure: 'دفع آمن',
+    pd_secure_sub: 'دفع مشفر بـ SSL',
+    pd_related: 'قد يعجبك أيضًا',
+
+    cart_title: 'سلة مشترياتك',
+    cart_empty: 'سلتك فارغة',
+    cart_empty_sub: 'يبدو أنك لم تضف أي شيء بعد.',
+    cart_start: 'ابدأ التسوق',
+    cart_item: 'المنتج',
+    cart_price: 'السعر',
+    cart_qty: 'الكمية',
+    cart_total: 'المجموع',
+    cart_remove: 'إزالة',
+    cart_coupon: 'كود الخصم',
+    cart_apply: 'تطبيق',
+    cart_summary: 'ملخص الطلب',
+    cart_subtotal: 'المجموع الفرعي',
+    cart_shipping: 'الشحن',
+    cart_discount: 'الخصم',
+    cart_free: 'مجاني',
+    cart_order_total: 'إجمالي الطلب',
+    cart_checkout: 'إتمام الشراء',
+    cart_continue: 'مواصلة التسوق',
+
+    contact_page_title: 'تواصل',
+    contact_page_brand: 'معنا',
+    contact_page_subtitle: 'نحن هنا للمساعدة في أي استفسار',
+    contact_form_name: 'الاسم الكامل',
+    contact_form_email: 'عنوان البريد الإلكتروني',
+    contact_form_subject: 'الموضوع',
+    contact_form_message: 'الرسالة',
+    contact_form_send: 'إرسال الرسالة',
+    contact_form_sending: 'جاري الإرسال...',
+    contact_info_title: 'تواصل معنا',
+
+    lang_popup_title: 'اختر لغتك',
+    lang_popup_sub: 'اختر لغتك المفضلة للمتابعة',
+    lang_popup_close: 'المتابعة بالعربية',
+    lang_en: 'الإنجليزية',
+    lang_tr: 'التركية',
+    lang_ar: 'العربية',
+  },
+};
+
+// ─────────────────────────────────────────────
+//  PROVIDER
+// ─────────────────────────────────────────────
+export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const getBrowserLang = (): Language => {
+    const saved = localStorage.getItem('alyans_lang') as Language | null;
+    if (saved && ['en', 'tr', 'ar'].includes(saved)) return saved;
+    const browser = navigator.language.slice(0, 2).toLowerCase();
+    if (browser === 'tr') return 'tr';
+    if (browser === 'ar') return 'ar';
+    return 'en';
+  };
+
+  const [lang, setLangState] = useState<Language>(getBrowserLang);
+
+  const setLang = (l: Language) => {
+    setLangState(l);
+    localStorage.setItem('alyans_lang', l);
+  };
+
+  const t = (key: string): string =>
+    translations[lang][key] ?? translations['en'][key] ?? key;
+
+  const dir: 'ltr' | 'rtl' = lang === 'ar' ? 'rtl' : 'ltr';
+
+  useEffect(() => {
+    document.documentElement.setAttribute('dir', dir);
+    document.documentElement.setAttribute('lang', lang);
+  }, [lang, dir]);
+
+  return (
+    <LanguageContext.Provider value={{ lang, setLang, t, dir }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
